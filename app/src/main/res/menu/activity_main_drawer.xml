@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/filmesCartaz"
+            android:title="Filmes em Cartaz" />
+        <item
+            android:id="@+id/filmesPopulares"
+            android:title="Filmes Populares" />
+        <item
+            android:id="@+id/filmesAvaliados"
+            android:title="Filmes Bem Avaliados" />
+        <item
+            android:id="@+id/filmesProcurar"
+            android:title="Procurar Filmes" />
+    </group>
+
+</menu>
