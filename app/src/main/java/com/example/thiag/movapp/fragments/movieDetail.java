@@ -1,6 +1,8 @@
 package com.example.thiag.movapp.fragments;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.thiag.movapp.IAccess;
+import com.example.thiag.movapp.Movie;
 import com.example.thiag.movapp.MoviesAdapter;
 import com.example.thiag.movapp.R;
 import com.example.thiag.movapp.TMDBConnect;
@@ -42,7 +47,7 @@ public class movieDetail extends Fragment {
 
     private RecyclerView recyclerView;
     private MoviesAdapter adapter;
-    private TMDBConnect tmdbConnect;
+    private IAccess access;
 
     /**
      * Use this factory method to create a new instance of
@@ -62,6 +67,9 @@ public class movieDetail extends Fragment {
         return fragment;
     }
 
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo networkInfo;
+    private boolean isConnected;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,18 +77,27 @@ public class movieDetail extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager != null) {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
+            isConnected = (networkInfo != null) && (networkInfo.isConnectedOrConnecting());
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.movie_detail, container, false);
-        // Inflate the layout for this fragment
-        recyclerView = (RecyclerView) v.findViewById(R.id.list_cartaz);
-        adapter = new MoviesAdapter(v);
-        tmdbConnect = new TMDBConnect(recyclerView, adapter);
-        tmdbConnect.listMoviesInTheaters();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Pegando o ID do filme
+        String getArgument = getArguments().getString("id");
+
+        //Verificação para saber se está conectado
+        if(isConnected) {
+            //Passando a view para construção do movie_detail e usando o método searchWithId para buscar os detalhes do filme
+            access = new TMDBConnect(v);
+            access.searchWithId(getArgument);
+        }
         return v;
     }
 

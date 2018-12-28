@@ -13,9 +13,6 @@
         <item
             android:id="@+id/filmesAvaliados"
             android:title="Filmes Bem Avaliados" />
-        <item
-            android:id="@+id/filmesProcurar"
-            android:title="Procurar Filmes" />
     </group>
 
 </menu>

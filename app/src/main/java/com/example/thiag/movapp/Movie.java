@@ -4,11 +4,11 @@ import android.media.Image;
 
 public class Movie {
 
-
+    //Classe com todos os atributos utilizados no app
     private int movieId;
     private String moviePhoto;
     private String movieName;
-    public String movieOverview;
+    private String movieOverview;
     private String movieReleaseDate;
     private Double movieAverageVote;
 

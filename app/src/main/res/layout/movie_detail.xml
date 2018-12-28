@@ -3,23 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="">
+    tools:context=".fragments.movieDetail">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/movieImageDetail"
-            android:layout_width="80dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="13dp"
             android:layout_weight="4" />
 
         <TextView
             android:id="@+id/movieNameDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="2"
             android:text="TextView" />
 
@@ -27,6 +31,7 @@
             android:id="@+id/releaseDateDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="2"
             android:text="TextView" />
 
@@ -34,6 +39,7 @@
             android:id="@+id/voteAverageDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="2"
             android:text="TextView" />
 
@@ -41,6 +47,7 @@
             android:id="@+id/overviewDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_weight="2"
             android:text="TextView" />
     </LinearLayout>

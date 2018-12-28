@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.thiag.movapp.IAccess;
 import com.example.thiag.movapp.MoviesAdapter;
 import com.example.thiag.movapp.R;
 import com.example.thiag.movapp.TMDBConnect;
@@ -45,7 +46,7 @@ public class movieListProcurar extends Fragment {
 
     private RecyclerView recyclerView;
     private MoviesAdapter adapter;
-    private TMDBConnect tmdbConnect;
+    private IAccess access;
     private Button buttonSearch;
     private EditText entrySearch;
 
@@ -89,10 +90,14 @@ public class movieListProcurar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_movie_search, container, false);
+
+        //Verificação para saber se está conectado
         if(isConnected) {
+            //Criando tudo necessário para a construção da lista com RecyclerView
             recyclerView = (RecyclerView) v.findViewById(R.id.list_search);
             adapter = new MoviesAdapter(v);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            //Diferente dos outros, há um click listener, para fazer a pesquisa de filmes
             buttonSearch = (Button) v.findViewById(R.id.buttonSearch);
             entrySearch = (EditText) v.findViewById(R.id.entrySearch);
 
@@ -100,8 +105,9 @@ public class movieListProcurar extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (entrySearch.getText() != null) {
-                        tmdbConnect = new TMDBConnect(recyclerView, adapter);
-                        tmdbConnect.search(entrySearch.getText().toString());
+                        access = new TMDBConnect(recyclerView, adapter);
+                        //Chama o método necessário para a construção dos items da lista
+                        access.search(entrySearch.getText().toString());
                     }
                 }
             });

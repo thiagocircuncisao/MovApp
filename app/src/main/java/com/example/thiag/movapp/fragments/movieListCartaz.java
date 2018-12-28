@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.thiag.movapp.IAccess;
 import com.example.thiag.movapp.MoviesAdapter;
 import com.example.thiag.movapp.R;
 import com.example.thiag.movapp.TMDBConnect;
@@ -44,7 +45,7 @@ public class movieListCartaz extends Fragment {
 
     private RecyclerView recyclerView;
     private MoviesAdapter adapter;
-    private TMDBConnect tmdbConnect;
+    private IAccess access;
 
     /**
      * Use this factory method to create a new instance of
@@ -86,11 +87,15 @@ public class movieListCartaz extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_movie_list_cartaz, container, false);
+
+        //Verificação para saber se está conectado
         if(isConnected) {
+            //Criando tudo necessário para a construção da lista com RecyclerView
             recyclerView = (RecyclerView) v.findViewById(R.id.list_cartaz);
             adapter = new MoviesAdapter(v);
-            tmdbConnect = new TMDBConnect(recyclerView, adapter);
-            tmdbConnect.listMoviesInTheaters();
+            access = new TMDBConnect(recyclerView, adapter);
+            //Chama o método necessário para a construção dos items da lista
+            access.listMoviesInTheaters();
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 

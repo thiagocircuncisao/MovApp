@@ -16,16 +16,17 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.thiag.movapp.fragments.movieDetail;
 import com.example.thiag.movapp.fragments.movieListBemAvaliados;
 import com.example.thiag.movapp.fragments.movieListCartaz;
 import com.example.thiag.movapp.fragments.movieListPopulares;
 import com.example.thiag.movapp.fragments.movieListProcurar;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, movieListCartaz.OnFragmentInteractionListener, movieListBemAvaliados.OnFragmentInteractionListener, movieListPopulares.OnFragmentInteractionListener, movieListProcurar.OnFragmentInteractionListener{
-
-
+        implements NavigationView.OnNavigationItemSelectedListener, movieDetail.OnFragmentInteractionListener, movieListCartaz.OnFragmentInteractionListener, movieListBemAvaliados.OnFragmentInteractionListener, movieListPopulares.OnFragmentInteractionListener, movieListProcurar.OnFragmentInteractionListener{
+    MenuItem menuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,29 +67,39 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_search ){
+            menuItem = item;
+            item.setEnabled(false);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListProcurar()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        //Abaixo são as mudanças de fragment com base nos cliques no menu
         if (id == R.id.filmesCartaz) {
+            menuItem.setEnabled(true);
             // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListCartaz()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.filmesPopulares) {
+            menuItem.setEnabled(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListPopulares()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.filmesAvaliados) {
+            menuItem.setEnabled(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListBemAvaliados()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(null)
-                    .commit();
-        } else if (id == R.id.filmesProcurar) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListProcurar()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         }
