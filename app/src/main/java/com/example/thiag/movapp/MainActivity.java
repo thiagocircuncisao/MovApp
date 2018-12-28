@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        //Chama o fragment de pesquisa
         if(id == R.id.action_search ){
             menuItem = item;
             item.setEnabled(false);
@@ -87,18 +88,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         //Abaixo são as mudanças de fragment com base nos cliques no menu
         if (id == R.id.filmesCartaz) {
-            menuItem.setEnabled(true);
-            // Handle the camera action
+            if(menuItem != null)
+                menuItem.setEnabled(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListCartaz()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.filmesPopulares) {
-            menuItem.setEnabled(true);
+            if(menuItem != null)
+                menuItem.setEnabled(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListPopulares()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.filmesAvaliados) {
-            menuItem.setEnabled(true);
+            if(menuItem != null)
+                menuItem.setEnabled(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new movieListBemAvaliados()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();

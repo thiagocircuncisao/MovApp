@@ -77,39 +77,41 @@ public class TMDBConnect extends AsyncTask implements IAccess {
         super.onPostExecute(o);
         JSONObject jsonObject = null;
         try {
-            jsonObject = new JSONObject((String) o);
+            if(o != null){
+                jsonObject = new JSONObject((String) o);
 
-            //Esta verificação existe para que o JSONArray não busque uma referencia inexistente
-            //visto que aos pesquisar por ID, não há o retorno de um array e sim de um único item
-            if(searchWithIdOn){
-                Movie movie = new Movie();
-
-                movie.setMovieId(jsonObject.getInt("id"));
-                movie.setMovieName(jsonObject.getString("title"));
-                movie.setMovieReleaseDate(jsonObject.getString("release_date"));
-                movie.setMovieAverageVote(jsonObject.getDouble("vote_average"));
-                movie.setMovieOverview(jsonObject.getString("overview"));
-                movie.setMoviePhoto(jsonObject.getString("poster_path"));
-
-                doAttachmentMovie(movie);
-            }else {
-                ArrayList<Movie> movies = new ArrayList<>();
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
+                //Esta verificação existe para que o JSONArray não busque uma referencia inexistente
+                //visto que aos pesquisar por ID, não há o retorno de um array e sim de um único item
+                if(searchWithIdOn){
                     Movie movie = new Movie();
 
-                    movie.setMovieId(object.getInt("id"));
-                    movie.setMovieName(object.getString("title"));
-                    movie.setMovieReleaseDate(object.getString("release_date"));
-                    movie.setMovieAverageVote(object.getDouble("vote_average"));
-                    movie.setMovieOverview(object.getString("overview"));
-                    movie.setMoviePhoto(object.getString("poster_path"));
-                    movies.add(movie);
-                }
-                if (movies != null) {
-                    adapter.setMoviesList(movies);
-                    recyclerView.setAdapter(adapter);
+                    movie.setMovieId(jsonObject.getInt("id"));
+                    movie.setMovieName(jsonObject.getString("title"));
+                    movie.setMovieReleaseDate(jsonObject.getString("release_date"));
+                    movie.setMovieAverageVote(jsonObject.getDouble("vote_average"));
+                    movie.setMovieOverview(jsonObject.getString("overview"));
+                    movie.setMoviePhoto(jsonObject.getString("poster_path"));
+
+                    doAttachmentMovie(movie);
+                }else {
+                    ArrayList<Movie> movies = new ArrayList<>();
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        Movie movie = new Movie();
+
+                        movie.setMovieId(object.getInt("id"));
+                        movie.setMovieName(object.getString("title"));
+                        movie.setMovieReleaseDate(object.getString("release_date"));
+                        movie.setMovieAverageVote(object.getDouble("vote_average"));
+                        movie.setMovieOverview(object.getString("overview"));
+                        movie.setMoviePhoto(object.getString("poster_path"));
+                        movies.add(movie);
+                    }
+                    if (movies != null) {
+                        adapter.setMoviesList(movies);
+                        recyclerView.setAdapter(adapter);
+                    }
                 }
             }
             searchWithIdOn = false;

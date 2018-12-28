@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.thiag.movapp.IAccess;
 import com.example.thiag.movapp.MoviesAdapter;
@@ -47,7 +48,7 @@ public class movieListProcurar extends Fragment {
     private RecyclerView recyclerView;
     private MoviesAdapter adapter;
     private IAccess access;
-    private Button buttonSearch;
+    private ImageButton buttonSearch;
     private EditText entrySearch;
 
     /**
@@ -98,7 +99,7 @@ public class movieListProcurar extends Fragment {
             adapter = new MoviesAdapter(v);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             //Diferente dos outros, há um click listener, para fazer a pesquisa de filmes
-            buttonSearch = (Button) v.findViewById(R.id.buttonSearch);
+            buttonSearch = (ImageButton) v.findViewById(R.id.buttonSearch);
             entrySearch = (EditText) v.findViewById(R.id.entrySearch);
 
             buttonSearch.setOnClickListener(new View.OnClickListener() {
