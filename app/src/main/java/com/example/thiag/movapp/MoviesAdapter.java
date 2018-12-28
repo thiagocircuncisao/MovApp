@@ -1,16 +1,27 @@
 package com.example.thiag.movapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.media.Image;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.thiag.movapp.fragments.movieDetail;
+import com.example.thiag.movapp.fragments.movieListProcurar;
 
 import java.util.List;
 
@@ -18,6 +29,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     private List<Movie> moviesList;
     private View view;
+    private int id;
 
     public MoviesAdapter(View view){
         this.view = view;
@@ -33,7 +45,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         private TextView releaseDate;
         private TextView voteAvarage;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             image = (ImageView) itemView.findViewById(R.id.movieImage);

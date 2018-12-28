@@ -71,6 +71,7 @@ public class TMDBConnect extends AsyncTask implements IAccess {
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject object = jsonArray.getJSONObject(i);
                 Movie movie = new Movie();
+                movie.setMovieId(object.getInt("id"));
                 movie.setMovieName(object.getString("title"));
                 movie.setMovieReleaseDate(object.getString("release_date"));
                 movie.setMovieAverageVote(object.getDouble("vote_average"));

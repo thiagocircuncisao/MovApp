@@ -4,6 +4,8 @@ import android.media.Image;
 
 public class Movie {
 
+
+    private int movieId;
     private String moviePhoto;
     private String movieName;
     public String movieOverview;
@@ -19,6 +21,9 @@ public class Movie {
 
     public Movie(){
 
+    }
+    public int getMovieId() {
+        return movieId;
     }
 
     public String getMoviePhoto() {
@@ -39,6 +44,10 @@ public class Movie {
 
     public Double getMovieAverageVote() {
         return movieAverageVote;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public void setMoviePhoto(String moviePhoto) {
