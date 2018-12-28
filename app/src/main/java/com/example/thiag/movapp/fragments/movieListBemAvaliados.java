@@ -1,6 +1,8 @@
 package com.example.thiag.movapp.fragments;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -61,6 +63,9 @@ public class movieListBemAvaliados extends Fragment {
         return fragment;
     }
 
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo networkInfo;
+    private boolean isConnected;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,18 +73,25 @@ public class movieListBemAvaliados extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager != null) {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
+            isConnected = (networkInfo != null) && (networkInfo.isConnectedOrConnecting());
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_movie_list_bem_avaliados, container, false);
-        // Inflate the layout for this fragment
-        recyclerView = (RecyclerView) v.findViewById(R.id.list_avaliados);
-        adapter = new MoviesAdapter(v);
-        tmdbConnect = new TMDBConnect(recyclerView, adapter);
-        tmdbConnect.listBestRatedMovies();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if(isConnected) {
+            recyclerView = (RecyclerView) v.findViewById(R.id.list_avaliados);
+            adapter = new MoviesAdapter(v);
+            tmdbConnect = new TMDBConnect(recyclerView, adapter);
+            tmdbConnect.listBestRatedMovies();
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
 
         return v;
     }
